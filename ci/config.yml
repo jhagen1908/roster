@@ -1,8 +1,6 @@
-cf_api_url}:
-cf_user_name:
-cf_password:
-cf_org:
-cf_skip_ssl:
-cf_space:
+cf_api_url: api.run.pivotal.io
+cf_user_name: sgreenberg@rscale.io
+cf_org: rscale
+cf_space: development
 mysql_service_name: cleardb
 mysql_plan_name: spark

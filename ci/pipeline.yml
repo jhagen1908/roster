@@ -73,7 +73,6 @@ jobs:
       CF_USER_NAME: {{cf_user_name}}
       CF_PASSWORD: {{cf_password}}
       CF_ORG: {{cf_org}}
-      CF_SKIP_SSL: {{cf_skip_ssl}}
       CF_SPACE: {{cf_space}}
       MYSQL_SERVICE_NAME: {{mysql_service_name}}
       MYSQL_PLAN_NAME: {{mysql_plan_name}}
