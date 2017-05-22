@@ -22,7 +22,7 @@ cf bind-service $app_name $service_name
 echo "Start app"
 cf start $app_name
 
-route=$(get_route $app_name)
+route=`cf app $app_name | grep urls | awk -F'[, ]' '{print $2}'`
 
 insert_response=$(curl -H "Content-Type: application/json" -X POST -d '{"firstName":"foo", "lastName": "bar"}'  http://$route/people)
 person_href=$(echo $insert_response | jq --raw-output '._links.person.href')
@@ -76,3 +76,7 @@ echo "Cleaning up"
 # Not on course. Tidy up...
 cf delete -f -r $app_name
 cf delete-service -f $service_name
+
+version=`cat version/number`
+
+cp minio-development/roster*.jar build/roster-${version}.jar
