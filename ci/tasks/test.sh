@@ -11,7 +11,7 @@ echo "Create database service"
 cf create-service $MYSQL_SERVICE_NAME $MYSQL_PLAN_NAME $service_name
 
 echo "Push app"
-cf push $app_name -p minio-development/roster*.jar --random-route --no-start -m 512M
+cf push $app_name -p minio-development/roster*.jar --random-route --no-start -m 512M -b java_buildpack
 cf set-env $app_name ROSTER_A bar
 cf set-env $app_name ROSTER_C foo
 cf set-env $app_name ROSTER_B baz
