@@ -7,7 +7,7 @@ cd build
 app_name=roster
 service_name=roster-db
 
-cf login -a $CF_API_URL -u $CF_USER_NAME -p $CF_PASSWORD -o $CF_ORG -s $CF_SPACE 
+cf login -a $CF_API_URL -u $CF_USER_NAME -p $CF_PASSWORD -o $CF_ORG -s $CF_SPACE
 
 echo "Create database service"
 cf create-service $MYSQL_SERVICE_NAME $MYSQL_PLAN_NAME $service_name

@@ -8,4 +8,4 @@ cd roster
 
 mvn package
 
-mv target/roster.jar build/roster-${version}.jar
+mv target/roster.jar ../build/roster-${version}.jar
