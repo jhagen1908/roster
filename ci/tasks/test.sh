@@ -2,8 +2,10 @@
 
 set -eu
 
-app_name=$RANDOM$RANDOM
-service_name=$RANDOM$RANDOM
+cd build
+
+app_name=roster
+service_name=roster-db
 
 dirname=$(dirname $0)
 

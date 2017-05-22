@@ -3,3 +3,6 @@ bin
 target
 .project
 .classpath
+/.apt_generated/
+.factorypath
+.settings

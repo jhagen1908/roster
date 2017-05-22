@@ -1,0 +1,96 @@
+---
+
+resources:
+
+- name: roster
+  type: git
+  source:
+    uri: git@github.com:resilientscale/roster.git
+    branch: master
+    private_key: {{github_private_key}}
+
+- name: version
+  type: semver
+  source:
+    endpoint: http://192.168.100.1:9000
+    bucket: versions
+    key: roster-version
+    access_key_id: {{minio_access_key}}
+    secret_access_key: {{minio_secret_key}}
+    initial_version: 1.0.0
+
+- name: minio-development
+  type: s3
+  source:
+    regexp: roster-(.*).jar
+    endpoint: http://192.168.100.1:9000
+    bucket: development
+    access_key_id: {{minio_access_key}}
+    secret_access_key: {{minio_secret_key}}
+    disable_ssl: true
+
+- name: minio
+  type: s3
+  source:
+    regexp: roster-(.*).jar
+    endpoint: http://192.168.100.1:9000
+    bucket: staging
+    access_key_id: {{minio_access_key}}
+    secret_access_key: {{minio_secret_key}}
+    disable_ssl: true
+
+jobs:
+
+- name: build
+  serial_groups: [version]
+  plan:
+  - aggregate:
+    - get: roster
+      trigger: true
+    - get: version
+      params: {pre: rc}
+  - task: build
+    file: roster/ci/tasks/build.yml
+  - put: minio-development
+    params:
+      file: build/roster-*.jar
+  - put: version
+    params: {file: version/number}
+
+- name: integration-test
+  serial_groups: [version]
+  plan:
+  - aggregate:
+    - get: minio-development
+      trigger: true
+      passed: [build]
+    - get: version
+      params: {bump: patch}
+  - task: test
+    file: roster/ci/tasks/test.yml
+    params:
+      CF_API_URL: {{cf_api_url}}
+      CF_USER_NAME: {{cf_user_name}}
+      CF_PASSWORD: {{cf_password}}
+      CF_ORG: {{cf_org}}
+      CF_SKIP_SSL: {{cf_skip_ssl}}
+      CF_SPACE: {{cf_space}}
+      MYSQL_SERVICE_NAME: {{mysql_service_name}}
+      MYSQL_PLAN_NAME: {{mysql_plan_name}}
+  - put: minio
+    params:
+      file: build/roster-*.jar
+  - put: version
+    params: {file: version/number}
+
+- name: major
+  serial_groups: [version]
+  plan:
+  - put: version
+    params: {bump: major}
+
+- name: minor
+  serial_groups: [version]
+  plan:
+  - put: version
+    params: {bump: minor}

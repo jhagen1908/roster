@@ -4,11 +4,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.cloudfoundry.cfcd</groupId>
-  <artifactId>rest-data-service</artifactId>
+  <artifactId>roster</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>rest-data-service</name>
+  <name>roster</name>
   <description>Rest Data Service for Cloud Foundry Certified Developer</description>
 
   <parent>

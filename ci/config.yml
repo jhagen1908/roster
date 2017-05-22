@@ -1,0 +1,8 @@
+cf_api_url}:
+cf_user_name:
+cf_password:
+cf_org:
+cf_skip_ssl:
+cf_space:
+mysql_service_name: cleardb
+mysql_plan_name: spark
