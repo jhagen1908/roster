@@ -66,6 +66,7 @@ jobs:
       passed: [build]
     - get: version
       params: {bump: patch}
+    - get: roster
   - task: test
     file: roster/ci/tasks/test.yml
     params:

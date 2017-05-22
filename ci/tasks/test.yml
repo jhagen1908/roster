@@ -10,6 +10,7 @@ image_resource:
 inputs:
 - name: minio-development
 - name: version
+- name: roster
 
 outputs:
 - name: build
