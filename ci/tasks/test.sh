@@ -2,10 +2,8 @@
 
 set -eu
 
-cd build
-
-app_name=roster
-service_name=roster-db
+app_name="roster"
+service_name="roster-db"
 
 cf login -a $CF_API_URL -u $CF_USER_NAME -p $CF_PASSWORD -o $CF_ORG -s $CF_SPACE
 
