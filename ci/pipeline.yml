@@ -12,7 +12,7 @@ resources:
 - name: version
   type: semver
   source:
-    endpoint: http://192.168.100.1:9000
+    endpoint: {{minio_server}}
     bucket: versions
     key: roster-version
     access_key_id: {{minio_access_key}}
@@ -23,7 +23,7 @@ resources:
   type: s3
   source:
     regexp: roster-(.*).jar
-    endpoint: http://192.168.100.1:9000
+    endpoint: {{minio_server}}
     bucket: development
     access_key_id: {{minio_access_key}}
     secret_access_key: {{minio_secret_key}}
@@ -33,7 +33,7 @@ resources:
   type: s3
   source:
     regexp: roster-(.*).jar
-    endpoint: http://192.168.100.1:9000
+    endpoint: {{minio_server}}
     bucket: staging
     access_key_id: {{minio_access_key}}
     secret_access_key: {{minio_secret_key}}
