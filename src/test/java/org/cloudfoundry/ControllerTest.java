@@ -76,7 +76,7 @@ public class ControllerTest {
 	@Test
 	public void itSavesAPerson() throws Exception {
 		mockMvc.perform(post("/people").content(
-				"{  \"firstName\" : \"Frodo\",  \"lastName\" : \"Baggins\", \"email\" : \"frodo@example.com\", \"phoneNumber\" : \"123456789\", \"companyName\" : \"Speedy Delivery\" }"))
+				"{  \"firstName\" : \"Frodo\",  \"lastName\" : \"Baggins\", \"email\" : \"frodo@example.com\", \"phoneNumber\" : \"123456789\", \"companyGuid\" : \"company-guid\" }"))
 				.andExpect(status().isCreated());
 
 		mockMvc.perform(get("/people")).andExpect(status().isOk()).andExpect(content().contentType(contentType))
@@ -85,13 +85,13 @@ public class ControllerTest {
 				.andExpect(jsonPath("$._embedded.people[0].lastName", is("Baggins")))
 				.andExpect(jsonPath("$._embedded.people[0].email", is("frodo@example.com")))
 				.andExpect(jsonPath("$._embedded.people[0].phoneNumber", is("123456789")))
-				.andExpect(jsonPath("$._embedded.people[0].companyName", is("Speedy Delivery")));
+				.andExpect(jsonPath("$._embedded.people[0].companyGuid", is("company-guid")));
 	}
 
 	@Test
 	public void itGetsAPerson() throws Exception {
 
-		repository.save(new Person("Frodo", "Baggins", "frodo@example.com", "123456789", "Speedy Delivery"));
+		repository.save(new Person("Frodo", "Baggins", "frodo@example.com", "123456789", "company-guid"));
 		Person p = repository.findAll().iterator().next();
 
 		mockMvc.perform(get("/people/" + p.getUuid())).andExpect(status().isOk())
@@ -99,13 +99,13 @@ public class ControllerTest {
 				.andExpect(jsonPath("$.lastName", is("Baggins")))
 				.andExpect(jsonPath("$.email", is("frodo@example.com")))
 				.andExpect(jsonPath("$.phoneNumber", is("123456789")))
-				.andExpect(jsonPath("$.companyName", is("Speedy Delivery")));
+				.andExpect(jsonPath("$.companyGuid", is("company-guid")));
 	}
 
 	@Test
 	public void itDeletesAPerson() throws Exception {
 
-		repository.save(new Person("Frodo", "Baggins", "frodo@example.com", "867-5309", "Speedy Delivery"));
+		repository.save(new Person("Frodo", "Baggins", "frodo@example.com", "867-5309", "company-guid"));
 		Person p = repository.findAll().iterator().next();
 
 		mockMvc.perform(delete("/people/" + p.getUuid())).andExpect(status().isNoContent());

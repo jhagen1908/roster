@@ -25,7 +25,7 @@ public class Person {
 	private String lastName;
 	private String email;
 	private String phoneNumber;
-	private String companyName;
+	private String companyGuid;
 
 	@OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
 	private Set<PersonStatus> personStatuses;
@@ -33,13 +33,13 @@ public class Person {
 	Person() {
 	}
 
-	public Person(String firstName, String lastName, String email, String phoneNumber, String companyName) {
+	public Person(String firstName, String lastName, String email, String phoneNumber, String companyGuid) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
-		this.companyName = companyName;
+		this.companyGuid = companyGuid;
 	}
 
 	public UUID getUuid() {
@@ -78,12 +78,12 @@ public class Person {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public String getCompanyName() {
-		return companyName;
+	public String getCompanyGuid() {
+		return companyGuid;
 	}
 
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
+	public void setCompanyGuid(String companyGuid) {
+		this.companyGuid = companyGuid;
 	}
 
 	public Set<PersonStatus> getPersonStatuses() {
